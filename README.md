@@ -1,7 +1,7 @@
 ShowcaseView
 ---
 
-(./gif/4.png)
+![Holo style showcaseview](./gif/4.png)
 
 | Holo | "New style" | Material |
 | --- | --- | --- |
