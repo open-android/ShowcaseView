@@ -1,6 +1,6 @@
 * 欢迎关注微信公众号、长期为您推荐优秀博文、开源项目、视频
 
-微信公众号名称：Android干货程序员
+* 微信公众号名称：Android干货程序员
 
 ![](http://upload-images.jianshu.io/upload_images/4037105-8f737b5104dd0b5d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 ---
@@ -27,8 +27,8 @@ compile 'com.github.amlcurran.showcaseview:library:5.4.3'
 
  new ShowcaseView.Builder(this)
          .setTarget(new ViewTarget(get_src_bn))//设置button为突出的目标
-         .setContentTitle("Default ShowcaseView")
-         .setContentText("This is highlighting the button view.\nIn Default ShowcaseView, you must set the Target you want to highlight!")
+         .setContentTitle("我的微信公众号")
+         .setContentText("Android干货程序员")
          .hideOnTouchOutside()
          .build();
 ```
@@ -50,3 +50,94 @@ compile 'com.github.amlcurran.showcaseview:library:5.4.3'
  </style>
  ```                            
 可以看到这个背景主题是继承了ShowcaseView.Light主题，然后修改了背景颜色、字体颜色和按钮文字。设置完正确的style之后，还需要马上设置背景图片，这个例子中的背景图片是R.drawable.swipe_back_en，图片必须是png格式的透明图片。
+
+### 4. 在Activity中，想实现用户注册引导界面，如下图，代码如下：
+
+![](./gif/5.gif)
+```java
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.lavor.showcaseviewdemo.MainActivity">
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/password"
+        android:inputType="textPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/register"
+        android:text="注册"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>
+ ```   
+ ```java
+  /**
+     * 简单的用户注册引导
+     */
+    public  void registerGuide(){
+        this.register = (Button) findViewById(R.id.register);
+        this.password = (EditText) findViewById(R.id.password);
+        this.username = (EditText) findViewById(R.id.username);
+        usernameTarget = new ViewTarget(username);
+        passwordTarget = new ViewTarget(password);
+        registerTarget = new ViewTarget(register);
+        final Button usernameButton=new Button(this);
+        usernameButton.setText("下一步");
+        final Button passwordButton=new Button(this);
+        passwordButton.setText("下一步");
+        final Button registerButton=new Button(this);
+        registerButton.setText("明白了");
+        usernameShowcaseView=new ShowcaseView.Builder(this)
+                .withHoloShowcase()
+                .setTarget(usernameTarget)
+                .setContentTitle("第一步")
+                .setContentText("请输入用户名")
+                .replaceEndButton(usernameButton)
+                .build();
+        passwordShowcaseView=new ShowcaseView.Builder(MainActivity.this)
+                .withHoloShowcase()
+                .setTarget(passwordTarget)
+                .setContentTitle("第二步")
+                .setContentText("请输入密码")
+                .replaceEndButton(passwordButton)
+                .build();
+        passwordShowcaseView.hide();
+        registerShowcaseView=new ShowcaseView.Builder(MainActivity.this)
+                .withHoloShowcase()
+                .setTarget(registerTarget)
+                .setContentTitle("第三步")
+                .setContentText("请点击注册按钮")
+                .replaceEndButton(registerButton)
+                .build();
+        registerShowcaseView.hide();
+        usernameButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                usernameShowcaseView.hide();
+                passwordShowcaseView.show();
+            }
+        });
+        passwordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                passwordShowcaseView.hide();
+                registerShowcaseView.show();
+            }
+        });
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                registerShowcaseView.hide();
+            }
+        });
+    }
+ ```       
