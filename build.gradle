@@ -17,13 +17,23 @@ def isReleaseBuild() {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.3.2'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5' // Add this line
+    }
+}
 
 allprojects {
   group = GROUP
   version = VERSION_CODE
-
+  
   repositories {
     mavenCentral()
+    jcenter()
   }
 
   tasks.withType(JavaCompile) {
