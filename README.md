@@ -1,7 +1,7 @@
 ShowcaseView
 ---
 
-The ShowcaseView (SCV) library is designed to highlight and showcase specific parts of apps to the user with a distinctive and attractive overlay. This library is great for pointing out points of interest for users, gestures, or obscure but useful items.
+(./gif/4.png)
 
 | Holo | "New style" | Material |
 | --- | --- | --- |
