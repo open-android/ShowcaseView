@@ -1,108 +1,52 @@
-ShowcaseView
----
+* 欢迎关注微信公众号、长期为您推荐优秀博文、开源项目、视频
 
-![Holo style showcaseview](./gif/4.png)
+微信公众号名称：Android干货程序员
+
+![](http://upload-images.jianshu.io/upload_images/4037105-8f737b5104dd0b5d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+---
+在安卓系统第一次使用的时候，我们会看到类似如下左图的界面，它用一个半透明的图片遮盖住下面的界面，而突出界面中的某一个按钮或者图标，然后在旁边写上若干提示文字，告诉用户某个操作方法。类似的，当我们第一次使用某些软件的时候，也会出现一个半透明的提示界面，比如知乎在第一次查看的时候，会告诉你右划返回，当你以后再进行相同的操作时，这个半透明的提示图片就不会出现了。
+
+![](./gif/4.png)
 
 | Holo | "New style" | Material |
 | --- | --- | --- |
 | ![Holo style showcaseview](./example2@2x.png) | ![new style showcaseview](./example@2x.png) | ![Material style showcaseview](./material.png) |
 
-The library is based on the "Cling" view found in the Launcher on Ice-Cream Sandwich and Jelly Bean.
 
-Project set-up
-====
 
-**ShowcaseView currently supports API LEVEL 11+**
-
-If you're using a Gradle-based project, then you can add SCV as a dependency directly:
+## 使用步骤
+### 1. 在Module的build.gradle添加依赖
 
 ~~~
 compile 'com.github.amlcurran.showcaseview:library:5.4.3'
 ~~~
 
-If you're using Maven (but not Gradle), you can add the APKlib as a dependency:
-
-```xml
-<dependency>
-  <groupId>com.github.amlcurran.showcaseview</groupId>
-  <artifactId>library</artifactId>
-  <version>5.4.3</version>
-  <type>apklib</type>
-</dependency>
-```
-
-If you're using a standard project without either Maven or Gradle, you'll have to download the project, and the add the library manually to your project.
-
-
-Usage
-====
-
-To use ShowcaseView, use the Builder pattern.
-
-As an example:
-
+### 2. 假设在Activity中有一个按钮，你想突出它(如上面三张图片)，在Activity的onCreate()方法中添加如下代码：
 ```java
-new ShowcaseView.Builder(this)
-    .setTarget(new ActionViewTarget(this, ActionViewTarget.Type.HOME))
-    .setContentTitle("ShowcaseView")
-    .setContentText("This is highlighting the Home button")
-    .hideOnTouchOutside()
-    .build();
+ Button get_src_bn = (Button)findViewById(R.id.get_source_bn);
+
+ new ShowcaseView.Builder(this)
+         .setTarget(new ViewTarget(get_src_bn))//设置button为突出的目标
+         .setContentTitle("Default ShowcaseView")
+         .setContentText("This is highlighting the button view.\nIn Default ShowcaseView, you must set the Target you want to highlight!")
+         .hideOnTouchOutside()
+         .build();
 ```
+这就是使用ShowcaseView的默认方法，很简单吧，你想突出什么，就以什么为Target。
 
-You can use styles to customise how a ShowcaseView looks. I'll write more documentation soon, but for now, check out the sample project's [styles](https://github.com/amlcurran/ShowcaseView/blob/master/sample/src/main/res/values/styles.xml).
-
-Sample Project
-----
-There's a sample project available which you can find in the project, or as an app on the [Google Play Store](https://play.google.com/store/apps/details?id=com.espian.showcaseview.sample).
-
-What's the legacy branch?
-----
-The [legacy branch](https://github.com/amlcurran/ShowcaseView/tree/legacy) is still available for people to use. This has more features than the master branch, but it more unwieldy to use and less stable. I don't support it at all - you'll have to build and compile it yourself. It isn't available on Maven Central either.
-
-Is it worth using?
-----
-Perhaps. Why not ask
-[Google](https://github.com/googlecast/CastVideos-android), [iPlayer Radio](https://play.google.com/store/apps/details?id=uk.co.bbc.android.iplayerradio),
-or [AllCast](https://play.google.com/store/apps/details?id=com.koushikdutta.cast), which each use the library?
-
-Previous users include The Guardian and HaxSync
-
-What's missing in v5
----
-
-- ShowcaseViews: the class which queues up ShowcaseViews in a tutorial-type method. I never
-really liked this class (generally, you should use SCV sparingly); I'll add it back in based on
-the Builder class when I can.
-- Ghostly hand: this has gone for now until I can test-drive it back in.
-- Scale multiplier: this has gone for simplicity - if people really loved it I'll add in back in
-
-FAQs
----
-
-**Where has X feature gone?**
-
-Look one paragraph up!
-
-**Waaaah, but I really liked feature X!!!**
-
-Switch to the legacy branch and use that one then! All legacy features are in there.
-
-**What happened to all the other constructors?**
-
-Gone. You should be using the new Target API.
-
-**What if I want to add feature X?**
-
-At the moment, I'm not taking any feature requests. It's unlikely I'll take many anyway,
-unless I feel they are both useful and well tested. If you have some cosmetic tweak then I don't
-want that added into the library as *another* option. But, if you need to make a tweak to the
-library to add such a tweak to your own, overridden ShowcaseView then that is totally great.
-
-
-Copyright and Licensing
-----
-
-Copyright Alex Curran ([@amlcurran](https://twitter.com/amlcurran)) © 2012-2014. All rights reserved.
-
-This library is distributed under an Apache 2.0 License.
+### 3. 在Activity中，你不想突出任何一个按钮或者View，你只是想像第一张图片一样显示一个半透明图片告诉用户某种手势操作，那么你的代码应该是这样的：
+```java
+ ShowcaseView showcaseView = new ShowcaseView.Builder(this)
+                             .setStyle(R.style.Custom_semi_transparent_demo)//setStyle instead of setTarget!
+                             .hideOnTouchOutside()
+                             .build();
+ ```
+你没有target任何一个view，而是使用了setStyle来手动的设置一个背景主题，那么这个背景主题就是关键了，Custom_semi_transparent_demo的代码如下：
+```java
+ <style name="Custom_semi_transparent_demo" parent="ShowcaseView.Light">
+     <item name="sv_backgroundColor">#663d4353</item>
+     <item name="sv_showcaseColor">#25467A</item>
+     <item name="sv_buttonText">Close</item>
+ </style>
+ ```                            
+可以看到这个背景主题是继承了ShowcaseView.Light主题，然后修改了背景颜色、字体颜色和按钮文字。设置完正确的style之后，还需要马上设置背景图片，这个例子中的背景图片是R.drawable.swipe_back_en，图片必须是png格式的透明图片。
