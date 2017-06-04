@@ -2,7 +2,9 @@
 
 * 微信公众号名称：Android干货程序员
 
-![](http://upload-images.jianshu.io/upload_images/4037105-8f737b5104dd0b5d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+* ![](http://upload-images.jianshu.io/upload_images/4037105-8f737b5104dd0b5d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+* 项目总贴:https://github.com/open-android/Android
 ---
 在安卓系统第一次使用的时候，我们会看到类似如下左图的界面，它用一个半透明的图片遮盖住下面的界面，而突出界面中的某一个按钮或者图标，然后在旁边写上若干提示文字，告诉用户某个操作方法。类似的，当我们第一次使用某些软件的时候，也会出现一个半透明的提示界面，比如知乎在第一次查看的时候，会告诉你右划返回，当你以后再进行相同的操作时，这个半透明的提示图片就不会出现了。
 
