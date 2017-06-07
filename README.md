@@ -22,6 +22,7 @@
 ~~~
 compile 'com.github.amlcurran.showcaseview:library:5.4.3'
 ~~~
+![](http://upload-images.jianshu.io/upload_images/4037105-2faa5daca3bfe8a0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ### 2. 假设在Activity中有一个按钮，你想突出它(如上面三张图片)，在Activity的onCreate()方法中添加如下代码：
 ```java
